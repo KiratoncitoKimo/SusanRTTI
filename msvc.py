@@ -1,4 +1,5 @@
-from idaapi import get_struc_id, BADADDR, del_struc, get_struc, add_struc, add_struc_member, FF_DATA, FF_DWORD, FF_0OFF, get_struc_size, FF_STRLIT, del_items, DELIT_DELNAMES, create_struct, get_member_by_name, get_32bit, set_name, SN_NOWARN, get_name, DELIT_SIMPLE, REFINFO_RVA
+from ida_struct import get_struc_id, add_struc, get_struc, get_struc_size
+from idaapi import BADADDR, add_struc_member, del_struc, FF_DATA, FF_DWORD, FF_0OFF, FF_STRLIT, del_items, DELIT_DELNAMES, DELIT_SIMPLE
 from idc import *
 from utils import utils
 import ida_bytes
