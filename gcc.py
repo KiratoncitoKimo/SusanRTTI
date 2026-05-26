@@ -1,9 +1,11 @@
 # Modified from GCC RTTI parsing code originally written by Igor Skochinsky.
 # See http://www.hexblog.com/?p=704 for the original version of his code.
+# Updated for IDA 9.2 compatibility
 
 import idaapi
 from idaapi import BADADDR
 from idc import *
+from ida_name import GN_VISIBLE
 from utils import utils
 u = utils()
 
@@ -173,7 +175,7 @@ def run_gcc():
                 bklass = all_classes[b.ti]
                 basename = classname(bklass.namestr)
             elif idaapi.is_spec_ea(b.ti):
-                nm = get_name(b.ti, ida_name.GN_VISIBLE)
+                nm = get_name(b.ti, GN_VISIBLE)
                 basename = tinfo2class(nm)
             else:
                 print("Base %08X not found for class %08X!" % (b.ti, tiaddr))

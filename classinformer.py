@@ -2,6 +2,7 @@
 # Nicolas Guigo / NCC Group
 # Tyler Colgan / NCC Group
 # 03/2017
+# Updated for IDA 9.2 compatibility
 
 import idaapi
 from idc import *

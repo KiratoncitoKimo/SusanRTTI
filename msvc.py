@@ -1,6 +1,7 @@
-from idaapi import get_struc_id, BADADDR, del_struc, get_struc, add_struc, add_struc_member, FF_DATA, FF_DWORD, FF_0OFF, get_struc_size, FF_STRLIT, del_items, DELIT_DELNAMES, create_struct, get_member_by_name, get_32bit, get_strlit_contents, demangle_name, create_dword, op_offset
+from idaapi import get_struc_id, BADADDR, del_struc, get_struc, add_struc, add_struc_member, FF_DATA, FF_DWORD, FF_0OFF, get_struc_size, FF_STRLIT, del_items, DELIT_DELNAMES, create_struct, get_member_by_name, get_32bit, set_name, SN_NOWARN, get_name, DELIT_SIMPLE, REFINFO_RVA
 from idc import *
 from utils import utils
+import ida_bytes
 u = utils()
 
 classes = {}
@@ -52,7 +53,7 @@ class RTTICompleteObjectLocator(RTTIStruc):
                 classHierarchyDes = get_32bit(ea+offset) + u.x64_imagebase()
                 rchd = RTTIClassHierarchyDescriptor(classHierarchyDes)
                 # filter out None entries
-                rchd.bases = filter(lambda x: x, rchd.bases)
+                rchd.bases = [x for x in rchd.bases if x]
                 classes[strip(rtd.class_name)] = [strip(b) for b in rchd.bases]
                 set_name(vtable, "vtable__" + strip(rtd.class_name), SN_NOWARN)
             else:

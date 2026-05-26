@@ -97,7 +97,7 @@ class utils(object):
         sv = struct.pack("<Q", val)
       else:
         sv = struct.pack("<I", val)
-      return " ".join("%02X" % ord(c) for c in sv)
+      return " ".join("%02X" % b for b in sv)
 
     def ptrfirst(self, val):
       return find_binary(0, SEARCH_CASE|SEARCH_DOWN, self.ptr_to_bytes(val))
@@ -197,16 +197,6 @@ class utils(object):
         m = 1 << (b - 1)
         x = x & ((1 << b) - 1)
         return (x ^ m) - m
-
-    def xref_or_find(self, addr, allow_many = False):
-        lrefs = list(DataRefsTo(addr))
-        if len(lrefs) == 0:
-            lrefs = list(idautils.refs(addr, self.ptrfirst, self.ptrnext))
-        if len(lrefs) > 1 and not allow_many:
-            print("too many xrefs to %08X" % addr)
-            return []
-        lrefs = [r for r in lrefs if not is_code(get_full_flags(r))]
-        return lrefs
 
     def num2key(self, all_classes):
         return [k for k in all_classes]
